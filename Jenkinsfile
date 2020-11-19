@@ -17,7 +17,7 @@ pipeline {
       steps {
         sh 'mvn package -Dkiptest '
         echo 'package maven app'
-        archiveArtifacts 'targets/*.war'
+        archiveArtifacts 'target/*.war'
       }
     }
 
