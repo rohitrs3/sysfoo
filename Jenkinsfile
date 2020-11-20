@@ -1,26 +1,32 @@
-pipeline{  
-   agent any
-   tools{
-      maven 'Maven 3.6.3'
-   }
-   stages{
+pipeline {
+  agent {
+    docker {
+      image 'maven:3.6.3-jdk-11-slim'
+      args 'added container'
+    }
 
-     stage ('Build'){
-        steps{
-          sh 'mvn compile'
-        }
-     }
+  }
+  stages {
+    stage('Build') {
+      steps {
+        sh 'mvn compile'
+      }
+    }
 
-     stage ('Unit Test'){
-        steps{
-          sh 'mvn clean test'
-        }
-     }
+    stage('Unit Test') {
+      steps {
+        sh 'mvn clean test'
+      }
+    }
 
-     stage ('Package'){
-        steps{
-          sh 'mvn package -Dkiptest '
-        }
-     }
-   }  
+    stage('Package') {
+      steps {
+        sh 'mvn package -Dkiptest '
+      }
+    }
+
+  }
+  tools {
+    maven 'Maven 3.6.3'
+  }
 }
